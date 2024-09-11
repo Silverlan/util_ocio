@@ -7,10 +7,6 @@ pr_add_dependency(${PROJ_NAME} util_image TARGET PUBLIC)
 
 pr_add_external_dependency(${PROJ_NAME} OpenColorIO LIBRARY)
 pr_add_external_dependency(${PROJ_NAME} OpenImageIO LIBRARY)
-pr_add_external_dependency(${PROJ_NAME} OpenEXR LIBRARY)
-pr_add_external_dependency(${PROJ_NAME} Imath LIBRARY)
-pr_add_external_dependency(${PROJ_NAME} tbb LIBRARY)
-pr_add_external_dependency(${PROJ_NAME} boost_thread_shared LIBRARY)
 
 pr_add_headers(${PROJ_NAME} "include/")
 pr_add_sources(${PROJ_NAME} "src/")
