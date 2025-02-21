@@ -8,8 +8,7 @@ pr_add_dependency(${PROJ_NAME} util_image TARGET PUBLIC)
 pr_add_external_dependency(${PROJ_NAME} OpenColorIO LIBRARY)
 pr_add_external_dependency(${PROJ_NAME} OpenImageIO LIBRARY)
 
-pr_add_headers(${PROJ_NAME} "include/")
-pr_add_sources(${PROJ_NAME} "src/")
+pr_init_module(${PROJ_NAME})
 
 if(UNIX)
 	target_link_libraries(${PROJ_NAME} PRIVATE dl)

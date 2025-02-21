@@ -1,6 +1,8 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
-* License, v. 2.0. If a copy of the MPL was not distributed with this
-* file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+module;
 
 #include <chrono>
 #include <cstdlib>
@@ -9,18 +11,17 @@
 #include <utility>
 #include <vector>
 #include <optional>
-#include "util_ocio.hpp"
 #include <util_image_buffer.hpp>
 #include <sharedutils/util.h>
 #include <sharedutils/util_path.hpp>
 
 #include <OpenColorIO/OpenColorIO.h>
-namespace OCIO = OCIO_NAMESPACE;
+#include "ocio_helper.hpp"
 
 #include <OpenImageIO/imageio.h>
 #include <OpenImageIO/typedesc.h>
 
-#pragma optimize("", off)
+module pragma.ocio;
 
 struct TransformProcessor {
 	OCIO::ExposureContrastTransformRcPtr transform = nullptr;
@@ -132,4 +133,3 @@ bool util::ocio::apply_color_transform(uimg::ImageBuffer &imgBuf, const ColorPro
 		return false;
 	return processor->Apply(imgBuf, outErr);
 }
-#pragma optimize("", on)
