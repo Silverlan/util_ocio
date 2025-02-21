@@ -39,7 +39,7 @@ struct ProcessorData {
 	std::shared_ptr<TransformProcessor> gammaTransform = nullptr;
 };
 
-std::shared_ptr<util::ocio::ColorProcessor> util::ocio::ColorProcessor::Create(const CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
+std::shared_ptr<pragma::ocio::ColorProcessor> pragma::ocio::ColorProcessor::Create(const CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
 {
 	auto bitDepth = (createInfo.bitDepth == CreateInfo::BitDepth::Float32) ? OCIO::BitDepth::BIT_DEPTH_F32 : (createInfo.bitDepth == CreateInfo::BitDepth::Float16) ? OCIO::BitDepth::BIT_DEPTH_F16 : OCIO::BitDepth::BIT_DEPTH_UINT8;
 	auto path = util::Path::CreatePath(util::get_program_path());
@@ -99,7 +99,7 @@ std::shared_ptr<util::ocio::ColorProcessor> util::ocio::ColorProcessor::Create(c
 	// Unreachable
 	return nullptr;
 }
-bool util::ocio::ColorProcessor::Apply(uimg::ImageBuffer &imgBuf, std::string &outErr)
+bool pragma::ocio::ColorProcessor::Apply(uimg::ImageBuffer &imgBuf, std::string &outErr)
 {
 	auto bitDepth = imgBuf.IsFloatFormat() ? OCIO::BitDepth::BIT_DEPTH_F32 : imgBuf.IsHDRFormat() ? OCIO::BitDepth::BIT_DEPTH_F16 : OCIO::BitDepth::BIT_DEPTH_UINT8;
 	OCIO::PackedImageDesc img {imgBuf.GetData(), static_cast<long>(imgBuf.GetWidth()), static_cast<long>(imgBuf.GetHeight()), imgBuf.GetChannelCount(), bitDepth, imgBuf.GetChannelSize(), static_cast<ptrdiff_t>(imgBuf.GetPixelStride()),
@@ -126,7 +126,7 @@ bool util::ocio::ColorProcessor::Apply(uimg::ImageBuffer &imgBuf, std::string &o
 	return true;
 }
 
-bool util::ocio::apply_color_transform(uimg::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
+bool pragma::ocio::apply_color_transform(uimg::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
 {
 	auto processor = ColorProcessor::Create(createInfo, outErr, exposure, gamma);
 	if(processor == nullptr)

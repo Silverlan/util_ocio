@@ -12,7 +12,7 @@ module;
 
 export module pragma.ocio;
 
-export namespace util::ocio {
+export namespace pragma::ocio {
 	class ColorProcessor : public std::enable_shared_from_this<ColorProcessor> {
 	  public:
 		struct CreateInfo {
