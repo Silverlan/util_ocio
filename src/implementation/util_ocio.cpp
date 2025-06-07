@@ -14,6 +14,7 @@ module;
 #include <util_image_buffer.hpp>
 #include <sharedutils/util.h>
 #include <sharedutils/util_path.hpp>
+#include <fsys/filesystem.h>
 
 #include <OpenColorIO/OpenColorIO.h>
 #include "ocio_helper.hpp"
@@ -42,9 +43,9 @@ struct ProcessorData {
 std::shared_ptr<pragma::ocio::ColorProcessor> pragma::ocio::ColorProcessor::Create(const CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
 {
 	auto bitDepth = (createInfo.bitDepth == CreateInfo::BitDepth::Float32) ? OCIO::BitDepth::BIT_DEPTH_F32 : (createInfo.bitDepth == CreateInfo::BitDepth::Float16) ? OCIO::BitDepth::BIT_DEPTH_F16 : OCIO::BitDepth::BIT_DEPTH_UINT8;
-	auto path = util::Path::CreatePath(util::get_program_path());
 	auto context = OCIO::Context::Create();
-	context->addSearchPath((path.GetString() + "modules/open_color_io").c_str());
+	for(auto &path : filemanager::get_absolute_root_paths())
+		context->addSearchPath(util::DirPath(path, "modules/open_color_io").GetString().c_str());
 
 	try {
 		auto processorData = std::make_shared<ProcessorData>();
