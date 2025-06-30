@@ -5,8 +5,11 @@ pr_add_library(${PROJ_NAME} STATIC)
 
 pr_add_dependency(${PROJ_NAME} util_image TARGET PUBLIC)
 
-pr_add_external_dependency(${PROJ_NAME} OpenColorIO LIBRARY)
-pr_add_external_dependency(${PROJ_NAME} OpenImageIO LIBRARY)
+find_package(opencolorio REQUIRED)
+pr_add_external_dependency(${PROJ_NAME} opencolorio LIBRARY PRIVATE)
+
+find_package(openimageio REQUIRED)
+pr_add_external_dependency(${PROJ_NAME} openimageio LIBRARY PRIVATE)
 
 pr_init_module(${PROJ_NAME})
 
