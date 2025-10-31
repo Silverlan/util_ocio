@@ -3,10 +3,6 @@
 
 module;
 
-#include <cinttypes>
-#include <memory>
-#include <string>
-#include <optional>
 
 export module pragma.ocio;
 
