@@ -3,7 +3,6 @@
 
 module;
 
-
 #include <OpenColorIO/OpenColorIO.h>
 
 #include <OpenImageIO/imageio.h>

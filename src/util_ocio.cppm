@@ -3,7 +3,6 @@
 
 module;
 
-
 export module pragma.ocio;
 
 export import pragma.image;
