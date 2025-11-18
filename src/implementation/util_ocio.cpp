@@ -3,25 +3,16 @@
 
 module;
 
-#include <chrono>
-#include <cstdlib>
-#include <iostream>
-#include <sstream>
-#include <utility>
-#include <vector>
-#include <optional>
-#include <util_image_buffer.hpp>
-#include <sharedutils/util.h>
-#include <sharedutils/util_path.hpp>
-#include <fsys/filesystem.h>
-
 #include <OpenColorIO/OpenColorIO.h>
-#include "ocio_helper.hpp"
 
 #include <OpenImageIO/imageio.h>
 #include <OpenImageIO/typedesc.h>
 
 module pragma.ocio;
+
+import pragma.filesystem;
+
+namespace OCIO = OCIO_NAMESPACE;
 
 struct TransformProcessor {
 	OCIO::ExposureContrastTransformRcPtr transform = nullptr;

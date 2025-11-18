@@ -3,13 +3,9 @@
 
 module;
 
-#include <cinttypes>
-#include <memory>
-#include <string>
-#include <optional>
-#include <util_image_buffer.hpp>
-
 export module pragma.ocio;
+
+export import pragma.image;
 
 export namespace pragma::ocio {
 	class ColorProcessor : public std::enable_shared_from_this<ColorProcessor> {
