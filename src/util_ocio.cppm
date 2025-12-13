@@ -18,9 +18,9 @@ export namespace pragma::ocio {
 			BitDepth bitDepth = BitDepth::Float32;
 		};
 		static std::shared_ptr<ColorProcessor> Create(const CreateInfo &createInfo, std::string &outErr, float exposure = 0.f, float gamma = 2.2f);
-		bool Apply(uimg::ImageBuffer &imgBuf, std::string &outErr);
+		bool Apply(image::ImageBuffer &imgBuf, std::string &outErr);
 	  private:
 		std::shared_ptr<void> m_processorData = nullptr;
 	};
-	bool apply_color_transform(uimg::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure = 0.f, float gamma = 2.2f);
+	bool apply_color_transform(image::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure = 0.f, float gamma = 2.2f);
 };

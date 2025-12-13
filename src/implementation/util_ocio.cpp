@@ -34,7 +34,7 @@ std::shared_ptr<pragma::ocio::ColorProcessor> pragma::ocio::ColorProcessor::Crea
 {
 	auto bitDepth = (createInfo.bitDepth == CreateInfo::BitDepth::Float32) ? OCIO::BitDepth::BIT_DEPTH_F32 : (createInfo.bitDepth == CreateInfo::BitDepth::Float16) ? OCIO::BitDepth::BIT_DEPTH_F16 : OCIO::BitDepth::BIT_DEPTH_UINT8;
 	auto context = OCIO::Context::Create();
-	for(auto &path : filemanager::get_absolute_root_paths())
+	for(auto &path : fs::get_absolute_root_paths())
 		context->addSearchPath(util::DirPath(path, "modules/open_color_io").GetString().c_str());
 
 	try {
@@ -90,7 +90,7 @@ std::shared_ptr<pragma::ocio::ColorProcessor> pragma::ocio::ColorProcessor::Crea
 	// Unreachable
 	return nullptr;
 }
-bool pragma::ocio::ColorProcessor::Apply(uimg::ImageBuffer &imgBuf, std::string &outErr)
+bool pragma::ocio::ColorProcessor::Apply(image::ImageBuffer &imgBuf, std::string &outErr)
 {
 	auto bitDepth = imgBuf.IsFloatFormat() ? OCIO::BitDepth::BIT_DEPTH_F32 : imgBuf.IsHDRFormat() ? OCIO::BitDepth::BIT_DEPTH_F16 : OCIO::BitDepth::BIT_DEPTH_UINT8;
 	OCIO::PackedImageDesc img {imgBuf.GetData(), static_cast<long>(imgBuf.GetWidth()), static_cast<long>(imgBuf.GetHeight()), imgBuf.GetChannelCount(), bitDepth, imgBuf.GetChannelSize(), static_cast<ptrdiff_t>(imgBuf.GetPixelStride()),
@@ -117,7 +117,7 @@ bool pragma::ocio::ColorProcessor::Apply(uimg::ImageBuffer &imgBuf, std::string 
 	return true;
 }
 
-bool pragma::ocio::apply_color_transform(uimg::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
+bool pragma::ocio::apply_color_transform(image::ImageBuffer &imgBuf, const ColorProcessor::CreateInfo &createInfo, std::string &outErr, float exposure, float gamma)
 {
 	auto processor = ColorProcessor::Create(createInfo, outErr, exposure, gamma);
 	if(processor == nullptr)
